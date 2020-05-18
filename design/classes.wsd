@@ -19,18 +19,25 @@ package Models {
     class WorkflowStep {
         string Id
         int StepId
-        Script ScriptItem
+        Script ScriptToExecute
         boolean Completed
         boolean InProgress
         map[string]string Parameters
-        map[string]string Result
+        map[string]string Results
         boolean Success
         string Message
     }
 
     class Workflow {
         string Id
-        WorkflowStep[] Steps
+        string Name
+        string Description
+        WorkflowStep[] Steps        
+    }
+
+    class Execution {
+        string Id 
+        Workflow Flow
         int CurrentStepId
         map[string]string Context
     }
@@ -39,6 +46,7 @@ package Models {
 Script --> ScriptParameter
 WorkflowStep --> Script
 Workflow --* WorkflowStep
+Execution --> Workflow
 
 package Repositories {
     class WorkflowRepo {
