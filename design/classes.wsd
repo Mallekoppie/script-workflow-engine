@@ -1,0 +1,68 @@
+@startuml
+
+package Models {
+    class ScriptParameter {
+        string Name
+        string Description
+        string DataType
+    }
+
+    class Script {
+        string Id
+        string Location
+        string Name
+        string Description
+        []ScriptParameter InputParameters
+        []ScriptParameter ExpectedResults
+    }
+
+    class WorkflowStep {
+        string Id
+        int StepId
+        Script ScriptItem
+        boolean Completed
+        boolean InProgress
+        map[string]string Parameters
+        map[string]string Result
+        boolean Success
+        string Message
+    }
+
+    class Workflow {
+        string Id
+        WorkflowStep[] Steps
+        int CurrentStepId
+        map[string]string Context
+    }
+}
+
+Script --> ScriptParameter
+WorkflowStep --> Script
+Workflow --* WorkflowStep
+
+package Repositories {
+    class WorkflowRepo {
+        DeleteScript(id string) error
+        SaveScript(item Script) error
+        DeleteWorkflowStep(id string) error
+        SaveWorkflowStep(item WorkflowStep) error
+        DeleteWorkFlow(id string) error
+        SaveWorkflow(item Workflow) error
+        GetAllWorkflows() []Workflow, error
+    }
+}
+
+package Logic {
+    class Engine {
+        DeleteScript(id string) error
+        SaveScript(item Script) error
+        DeleteWorkflowStep(id string) error
+        SaveWorkflowStep(item WorkflowStep) error
+        DeleteWorkFlow(id string) error
+        SaveWorkflow(item Workflow) error
+        GetAllWorkflows() []Workflow, error
+    }
+}
+
+
+@enduml
