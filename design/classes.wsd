@@ -52,17 +52,16 @@ package Repositories {
     }
 }
 
+WorkflowRepo --> Workflow
+WorkflowRepo --> WorkflowStep
+WorkflowRepo --> Script
+
 package Logic {
     class Engine {
-        DeleteScript(id string) error
-        SaveScript(item Script) error
-        DeleteWorkflowStep(id string) error
-        SaveWorkflowStep(item WorkflowStep) error
-        DeleteWorkFlow(id string) error
-        SaveWorkflow(item Workflow) error
-        GetAllWorkflows() []Workflow, error
+        RunWorkflow(flow Workflow) workflow, error
     }
 }
 
+Engine --> Workflow
 
 @enduml
